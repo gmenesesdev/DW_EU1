@@ -10,12 +10,12 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::getAll();
-        return view('index', compact('projects'));
+        return view('index', ['projects' => $projects]);
     }
 
     public function store(Request $request)
     {
-        $project = Project::create($request->all());
+        Project::create($request->all());
         return redirect('/projects');
     }
 
@@ -30,8 +30,8 @@ class ProjectController extends Controller
 
     public function update(Request $request, $id)
     {
-        $project = Project::updateByID($id, $request->all());
-        if ($project) {
+        $updated = Project::updateByID($id, $request->all());
+        if ($updated) {        
             return redirect('/projects');
         }
         return redirect('/projects')->with('error', 'Project not found');
@@ -39,8 +39,11 @@ class ProjectController extends Controller
 
     public function destroy($id)
     {
-        $success = Project::destroy($id);
-        return redirect('/projects');
+        $deleted = Project::destroy($id);
+        if ($deleted) {
+            return redirect('/projects');
+        }
+        return redirect('/projects')->with('error', 'Project not found');
     }
 
     public function create()

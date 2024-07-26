@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\UfController;
 
 Route::get('/projects', [ProjectController::class, 'index']);
 Route::get('/projects/create', [ProjectController::class, 'create']);
@@ -15,3 +16,5 @@ Route::get('/projects/{id}', [ProjectController::class, 'show']);
 Route::get('/projects/{id}/edit', [ProjectController::class, 'edit']);
 Route::put('/projects/{id}', [ProjectController::class, 'update']);
 Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
+
+Route::get('/uf', [UfController::class, 'show']);
